@@ -1,0 +1,7 @@
+# gilzoide:
+# Backups de texto
+*~
+*.swp
+
+# cache do python
+*.pyc
