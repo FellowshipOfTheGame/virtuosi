@@ -5,3 +5,10 @@
 
 # cache do python
 *.pyc
+
+# Releases do cx_freeze
+build/
+
+# Output do programa
+table.txt
+stdout_value.txt

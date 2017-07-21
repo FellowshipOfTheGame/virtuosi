@@ -24,13 +24,14 @@ from Virtuosi import *
 from Extras import *
 from Config import *
 import time
+import sys
 
 def main():
     #Preparacao da tela
     pygame.init()
     #TORNA O MOUSE INVISIVEL
     pygame.mouse.set_cursor((8,8),(0,0),(1,1,1,1,1,1,1,1),(1,1,1,1,1,1,1,1))
-    
+
     resolucao = (800, 600)
     #carrega configuracao padrao
     config = Config ()
@@ -45,19 +46,25 @@ def main():
             tela = pygame.display.set_mode(resolucao, pygame.FULLSCREEN)
         else:
             tela = pygame.display.set_mode(resolucao)
-    except IOError:    
+    except IOError:
         tela = pygame.display.set_mode(resolucao, pygame.FULLSCREEN)
-    
-    pygame.display.set_caption("Virtuosi!")
-    video = pygame.movie.Movie("Graphics/Movies/Virtuosi.mpg")
-    video.set_display(tela,((0,0),resolucao))
 
-    video.play()
-    video.set_volume(1)
-    while (video.get_busy()):
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                video.stop()
+    icon = pygame.image.load("Graphics/virt.ico")
+    pygame.display.set_caption("Virtuosi!", "Graphics/virt.ico")
+    pygame.display.set_icon(icon)
+    # Mostra o video, se possível (pygame pra Windows não suporta)
+    try:
+        video = pygame.movie.Movie("Graphics/Movies/Virtuosi.mpg")
+        video.set_display(tela,((0,0),resolucao))
+
+        video.play()
+        video.set_volume(1)
+        while (video.get_busy()):
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    video.stop()
+    except NotImplementedError:
+        print >> sys.stderr, "pygame.movie.Movie not supported!"
     Virt = Virtuosi(tela)
     #Loop de Execucao
     rodando = True
