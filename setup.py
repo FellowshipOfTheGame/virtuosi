@@ -18,6 +18,6 @@ if sys.platform == "win32":
 
 setup(name = "Virtuosi",
       version = "0.1",
-      description = u"Seja um virtuoso tocando músicas em seu violino",
+      description = u"Seja um virtuoso tocando músicas eruditas em seu violino",
       options = {"build_exe": build_exe_options},
       executables = [Executable("main.py", base=base, targetName="Virtuosi" + extension)])
